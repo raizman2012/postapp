@@ -6,7 +6,7 @@ module.exports = {
         name: 'postapp dev'
     },
     facebook: {
-        clientID: '641796912562834', //'APP_ID',
+        clientID: '641796912562834', //'APP_ID', // gambo
         clientSecret: '52146ab13cce4ebb0c29c36312d3ff97', //'APP_SECRET',
         callbackURL: 'http://localhost:3000/auth/facebook/callback'
     },

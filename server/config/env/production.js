@@ -6,8 +6,8 @@ module.exports = {
         name: 'post near you'
     },
     facebook: {
-        clientID: '641796912562834', //'APP_ID',
-        clientSecret: '52146ab13cce4ebb0c29c36312d3ff97', //'APP_SECRET',
+        clientID: '1455225998060884', //'APP_ID', streetpost
+        clientSecret: '076cc124583cf52366c47654f727a831', //'APP_SECRET',
         callbackURL: 'http://streetpost.herokuapp.com/auth/facebook/callback'
     },
     twitter: {
