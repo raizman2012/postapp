@@ -13,6 +13,7 @@
                 "public/system/lib/angular-mocks/angular-mocks.js",
                 "public/system/lib/angular-cookies/angular-cookies.js",
                 "public/system/lib/angular-resource/angular-resource.js",
+                "public/system/lib/angular-route/angular-route.js",
                 "public/system/lib/angular-ui-router/release/angular-ui-router.js",
 
                 "public/system/lib/lodash/dist/lodash.underscore.js",
