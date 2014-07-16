@@ -1,0 +1,49 @@
+<section data-ng-controller="IndexController">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" data-ng-click="loadPosts()">load</button>
+                <span>Lat : {{map.clickedMarker.latitude}}</span>
+                <span>Lon : {{map.clickedMarker.longitude}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <span>Bounds</span>
+                <span>Lat : {{map.bounds.northeast.latitude}}</span>
+                <span>Lon : {{map.bounds.northeast.longitude}}</span>
+                <br />
+                <span>Zoom</span>
+                <span>z : {{map.zoom}}</span>
+
+            </div>
+        </div>
+        <div class="row">
+            <google-map class="col-md-12"
+                        center="map.center"
+                        zoom="map.zoom"
+                        bounds="map.bounds"
+                        dragging="map.dragging"
+                        events="map.events"
+                        draggable="true"
+                        control="map.control">
+                <window show="true" coords="map.center" options="windowOptions">
+                    <div class="popup" style="width: 100px; height: 50px;">
+                        <p>test = {{test.name}}</p>
+                    </div>
+                </window>
+
+                <marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="onMarkerClicked(m)">
+                    <marker-label content="m.title" anchor="22 0" class="marker-labels"/>
+
+                </marker>
+
+                <windows models="windows" show="'show'" coords="'self'" options="windowOptions">
+                    <div style="width: 100px; height: 50px;">
+                        <p>test = {{test.name}}</p>
+                    </div>
+                </windows>
+            </google-map>
+        </div>
+    </div>
+</section>
