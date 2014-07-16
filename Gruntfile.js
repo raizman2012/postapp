@@ -6,7 +6,7 @@ var paths = {
     css: ['public/**/css/*.css', '!public/system/lib/**', 'packages/**/public/**/css/*.css']
 };
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     if (process.env.NODE_ENV !== 'production') {
         require('time-grunt')(grunt);
@@ -45,6 +45,14 @@ module.exports = function(grunt) {
                 options: {
                     jshintrc: true
                 }
+            }
+        },
+        concat: {
+            core: {
+                options: {
+                    separator: grunt.util.linefeed
+                },
+                files: '<%= assets.core.js %>'
             }
         },
         uglify: {
@@ -90,8 +98,9 @@ module.exports = function(grunt) {
                 reporter: 'spec',
                 require: [
                     'server.js',
-                    function() {
-                        require('mongoose').connection.once('open', function() {});
+                    function () {
+                        require('mongoose').connection.once('open', function () {
+                        });
                     }
                 ]
             },
@@ -114,7 +123,7 @@ module.exports = function(grunt) {
 
     //Default task(s).
     if (process.env.NODE_ENV === 'production') {
-        grunt.registerTask('default', ['clean', 'cssmin',  'concurrent']); //'uglify',
+        grunt.registerTask('default', ['clean', 'cssmin', 'concat', 'concurrent']);
     } else {
         grunt.registerTask('default', ['clean', 'jshint', 'csslint', 'concurrent']);
     }
@@ -124,5 +133,5 @@ module.exports = function(grunt) {
 
     // For Heroku users only.
     // Docs: https://github.com/linnovate/mean/wiki/Deploying-on-Heroku
-    grunt.registerTask('heroku:production', ['cssmin']); //'uglify',
+    grunt.registerTask('heroku:production', ['cssmin', 'concat']);
 };
