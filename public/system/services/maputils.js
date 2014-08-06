@@ -49,6 +49,6 @@ angular.module('mean.system').factory('MapUtils', [
             res.southwest.latitude = sw.lat();
             res.southwest.longitude = sw.lng();
             return res;
-        }
+        };
         return _this;
     }]);

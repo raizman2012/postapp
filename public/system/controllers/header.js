@@ -40,7 +40,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
 //                    });
                 }
             });
-        }
+        };
 
         $scope.gotoCurrentLocation = function () {
             if ('geolocation' in navigator) {

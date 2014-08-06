@@ -64,7 +64,7 @@ angular.module('mean.posts').controller('FeedController', [
 
         $scope.queryPosts = function() {
             if ($scope.posts !== undefined) {
-                if ($scope.posts.length == 0) {
+                if ($scope.posts.length === 0) {
                     console.log('loading');
                     return;
                 }
@@ -131,9 +131,9 @@ angular.module('mean.posts').controller('FeedController', [
 
                     console.log('idle bounds:', $scope.map.bounds);
 
-                    var map = $scope.map.controls.getGMap();
+                    var mapNative = $scope.map.controls.getGMap();
 
-                    var newbounds = MapUtils.getBoundsFromNative(map);
+                    var newbounds = MapUtils.getBoundsFromNative(mapNative);
                     //console.log('idle newbounds:', newbounds);
 
                     if ($scope.map.bounds.northeast === undefined) {
