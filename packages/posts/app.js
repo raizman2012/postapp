@@ -23,7 +23,12 @@ Posts.register(function(app, auth, database) {
         roles: ['authenticated'],
         menu: 'main'
     });
-
+    Posts.menus.add({
+        title: 'Feed',
+            link: 'Feed',
+            roles: ['authenticated'],
+            menu: 'main'
+    });
     /**
     //Uncomment to use. Requires meanio@0.3.7 or above
     // Save settings with callback

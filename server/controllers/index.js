@@ -1,6 +1,7 @@
 'use strict';
 
 var mean = require('meanio');
+var config = require('../config/config');
 
 exports.render = function(req, res) {
 
@@ -29,6 +30,7 @@ exports.render = function(req, res) {
         } : {},
         modules: modules,
         isAdmin: isAdmin,
+        config : config,
         adminEnabled: isAdmin() && mean.moduleEnabled('mean-admin')
     });
 };

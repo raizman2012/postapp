@@ -1,10 +1,14 @@
 console.log('test');
 var mongoose = require('mongoose');
 var async = require('async');
+var UserSchema = require('./../server/models/user.js');
 var PostSchema = require('./../packages/posts/server/models/post.js');
+var UserRootSchema = require('./../server/models/userroot.js');
 //var assert = require('assert')
 
+var User = mongoose.model('User');
 var Post = mongoose.model('Post');
+var UserRoot = mongoose.model('UserRoot');
 
 console.log('\n===========');
 console.log('    mongoose version: %s', mongoose.version, Post);
@@ -17,17 +21,56 @@ mongoose.connection.on('error', function () {
     console.error('connection error', arguments);
 });
 
+
 var example =
 { title: 'title',
     content: 'wow',
     location: { type: 'Point',
         coordinates: [ 34.777575731277466, 32.065992228606866 ] } };
 
+var user0 = null;
 mongoose.connection.on('open', function () {
     console.log('remove all');
-    Post.remove().exec();
+    Post.remove().exec(function(err){
+        console.log('removed all, err:', err);
 
-    count();
+        // get user to work with
+        User.find().exec(function (err, users) {
+            console.log(err, users);
+
+            user0 = users[0];
+            createMany(function() {
+                console.log('createMany done');
+
+
+                done();
+            });
+        });
+    });
+
+    //count();
+    if (false) {
+        UserRoot.find().exec(function (err, result) {
+            console.log(err, result);
+            done();
+            return;
+        });
+        return;
+
+        User.find().exec(function (err, users) {
+            console.log(err, users);
+
+            user0 = users[0];
+
+//            var userroot = new UserRoot({user: user0});
+//
+//            userroot.save(function (err) {
+//                console.log('userroot::', err);
+//
+//                done();
+//            });
+        });
+    }
     //createMany();
     //count();
 
@@ -35,6 +78,10 @@ mongoose.connection.on('open', function () {
     //done();
 });
 
+function createUserRoot() {
+    var userroot = new UserRoot({});
+    userroot.save();
+}
 
 function count() {
     Post.find().exec(function (err, posts) {
@@ -47,7 +94,9 @@ function count() {
         done();
     });
 }
-function createMany() {
+
+
+function createMany(callbackWhenDone) {
     var long = 0;
     var lat = 0;
 
@@ -64,7 +113,7 @@ function createMany() {
 
         console.log('count', count);
         if (count == calls.length) {
-            done();
+            callbackWhenDone();
         }
     };
 
@@ -73,12 +122,11 @@ function createMany() {
         for (var j = -10; j < 10; j++) {
 
             var myFunction = function (callback, i, j) {
-                console.log(i, ':', j);
+                //console.log(i, ':', j);
                 var long1 = long + i;
                 var lat1 = lat + j;
                 var pp = {
-                    title: 't',
-                    content: 'c',
+                    content: 'post with content_' + i + '_' + j,
                     location: {
                         type: 'Point',
                         coordinates: [long1, lat1]
@@ -87,9 +135,8 @@ function createMany() {
 
                 console.log('creating');
 
-
                 var post = new Post(pp);
-
+                post.user = user0;
                 post.save(function (err) {
                     console.log('creating?');
                     if (err) {

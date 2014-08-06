@@ -4,6 +4,9 @@
 {% include '../includes/head.html' %}
 
 <body>
+
+    {% include '../includes/facebookSdkInclude.html' %}
+
     <div class="navbar navbar-inverse navbar-fixed-top" data-ng-include="'/system/views/header.html'" data-role="navigation"></div>
     {% if adminEnabled %}
     <section class="admin-menu">

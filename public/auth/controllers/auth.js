@@ -5,9 +5,10 @@ angular.module('mean.controllers.login', [])
         function($scope, $rootScope, $http, $location) {
             // This object will be filled by the form
             $scope.user = {};
-
+            $scope.loginError = 0;
             // Register the login() function
             $scope.login = function() {
+                console.log($scope.user);
                 $http.post('/login', {
                     email: $scope.user.email,
                     password: $scope.user.password
@@ -29,7 +30,8 @@ angular.module('mean.controllers.login', [])
                         }
                     })
                     .error(function() {
-                        $scope.loginerror = 'Authentication failed.';
+                        console.log('error login');
+                        $scope.loginError = 'Authentication failed.';
                     });
             };
         }

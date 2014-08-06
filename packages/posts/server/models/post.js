@@ -18,11 +18,6 @@ var PostSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    title: {
-        type: String,
-        required: true,
-        trim: true
-    },
     content: {
         type: String,
         required: true,
@@ -32,7 +27,7 @@ var PostSchema = new Schema({
         type: [String],
         trim: true
     },
-    location: {
+    locationHash : {
         'type': {
             type: String,
             required: true,
@@ -41,20 +36,22 @@ var PostSchema = new Schema({
         },
         coordinates: []
     },
-    ref_id : {
-        type: String,
-        required: false,
-        trim: true
-    },
-    ref_type : {
-        type: String,
-        required: false,
-        trim: true
+    location: {
+        'type': {
+            type: String,
+            required: true,
+            enum: ['Point', 'LineString', 'Polygon'],
+            default: 'Point'
+        },
+
+        coordinates: []
     },
     user: {
         type: Schema.ObjectId,
         ref: 'User'
-    }
+    },
+    comments : [String]
+
 });
 
 PostSchema.index({location: '2dsphere'});
@@ -62,10 +59,6 @@ PostSchema.index({location: '2dsphere'});
 /**
  * Validations
  */
-PostSchema.path('title').validate(function (title) {
-    return !!title;
-}, 'Title cannot be blank');
-
 PostSchema.path('content').validate(function (content) {
     return !!content;
 }, 'Content cannot be blank');

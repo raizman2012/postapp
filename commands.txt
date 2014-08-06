@@ -1,0 +1,7 @@
+#start mongodb
+cd c:\Program Files\MongoDB 2.6 Standard\bin
+mongod --dbpath d:\mongodbdata
+
+#start express node
+cd C:\Users\Leonid\WebstormProjects\postapp
+grunt
